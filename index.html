@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portofolio Chairul Tanjung</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(145deg, #f9f5ff 0%, #f0f2ff 100%);
+            color: #1e1e2a;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* Glassmorphism card */
+        .glass {
+            background: rgba(255, 255, 255, 0.40);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            box-shadow: 0 20px 40px -12px rgba(0, 20, 40, 0.15), 0 4px 18px rgba(0, 0, 0, 0.03);
+            padding: 2rem 2rem 2.2rem;
+            transition: transform 0.25s ease, box-shadow 0.3s ease;
+        }
+
+        .glass:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 28px 48px -16px rgba(60, 40, 120, 0.18);
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 60px;
+            padding: 0.6rem 1.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.08);
+            position: relative;
+            z-index: 50;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.3rem;
+            letter-spacing: -0.3px;
+            background: linear-gradient(135deg, #3b2b6b, #6f4f9f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+        }
+        .logo i {
+            -webkit-text-fill-color: initial;
+            color: #6f4f9f;
+            margin-right: 6px;
+        }
+
+        /* Tombol Download PDF */
+        .btn-pdf {
+            background: rgba(111, 79, 159, 0.15);
+            border: 1px solid rgba(111, 79, 159, 0.25);
+            color: #4a3570;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.25s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Inter', sans-serif;
+        }
+        .btn-pdf:hover {
+            background: rgba(111, 79, 159, 0.25);
+            transform: scale(1.03);
+        }
+        .btn-pdf i {
+            color: #6f4f9f;
+            font-size: 0.9rem;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 6px;
+            position: relative;
+            z-index: 60;
+        }
+        .hamburger span {
+            width: 26px;
+            height: 3px;
+            background: #3b2b6b;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        /* ===== NAV POPUP ===== */
+        .nav-popup {
+            position: absolute;
+            top: calc(100% + 12px);
+            right: 0;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-radius: 24px;
+            padding: 1.5rem 1.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 24px 48px -16px rgba(0, 0, 0, 0.25);
+            width: 220px;
+            transform: scale(0.85) translateY(-10px);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.25s ease, opacity 0.25s ease;
+            transform-origin: top right;
+            z-index: 9999;
+        }
+        .nav-popup.open {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .nav-popup .modal-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .nav-popup .modal-links a {
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: #2d2a44;
+            padding: 0.3rem 0;
+            border-bottom: 2px solid transparent;
+            transition: 0.15s;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+        .nav-popup .modal-links a:hover {
+            border-bottom-color: #8b6fcb;
+            color: #3f2e6b;
+        }
+        .nav-popup .modal-links a i {
+            width: 1.6rem;
+            color: #7a5fb0;
+            font-size: 1rem;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 2rem;
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(12px);
+            border-radius: 40px;
+            padding: 2.5rem 2.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 20px 40px -12px rgba(60, 40, 120, 0.12);
+        }
+        .hero-text {
+            flex: 2;
+            min-width: 240px;
+        }
+        .hero-text .badge {
+            display: inline-block;
+            background: rgba(139, 111, 203, 0.2);
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            color: #4a3570;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 0.5rem;
+        }
+        .hero-text h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1.15;
+            margin-bottom: 0.4rem;
+        }
+        .hero-text h1 span {
+            background: linear-gradient(135deg, #6f4f9f, #b28bdf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-text .sub {
+            font-size: 1.1rem;
+            color: #3f3a55;
+            font-weight: 400;
+            margin-bottom: 0.3rem;
+        }
+        .hero-text .quote {
+            font-style: italic;
+            font-size: 1rem;
+            color: #4d4270;
+            background: rgba(255, 255, 255, 0.25);
+            padding: 0.6rem 1.2rem;
+            border-radius: 60px;
+            display: inline-block;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin-top: 0.8rem;
+        }
+        .hero-avatar {
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+        }
+        .hero-avatar img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 12px 24px -8px rgba(80, 50, 140, 0.15);
+            transition: transform 0.3s ease;
+        }
+        .hero-avatar img:hover {
+            transform: scale(1.05);
+        }
+
+        /* ===== SECTION TITLE ===== */
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.2rem;
+        }
+        .section-title i {
+            font-size: 1.6rem;
+            color: #6f4f9f;
+            background: rgba(255, 255, 255, 0.4);
+            padding: 0.3rem 0.6rem;
+            border-radius: 16px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .section-title h2 {
+            font-weight: 600;
+            font-size: 1.7rem;
+            letter-spacing: -0.4px;
+            color: #25203a;
+        }
+        .section-title .line {
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(111, 79, 159, 0.25), transparent);
+        }
+
+        /* ===== GRID & CARD ===== */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+        .info-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border-radius: 24px;
+            padding: 1.4rem 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transition: 0.25s ease;
+        }
+        .info-card:hover {
+            background: rgba(255, 255, 255, 0.45);
+            transform: scale(1.02);
+        }
+        .info-card h3 {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #2a2342;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .info-card h3 i {
+            color: #6f4f9f;
+            font-size: 1.1rem;
+        }
+        .info-card p,
+        .info-card li {
+            color: #35304a;
+            font-weight: 400;
+            font-size: 0.95rem;
+        }
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .info-card ul li {
+            padding: 0.2rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .info-card ul li:last-child {
+            border-bottom: none;
+        }
+        .info-card ul li i {
+            color: #8b6fcb;
+            width: 1.4rem;
+        }
+
+        /* ===== PORTOFOLIO BISNIS ===== */
+        .pillar {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
+            border-radius: 20px;
+            padding: 1.2rem 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: 0.25s;
+        }
+        .pillar:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-3px);
+        }
+        .pillar h4 {
+            font-weight: 600;
+            color: #3f2e6b;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+        .pillar .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .pillar .tags span {
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(4px);
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #2a2342;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* ===== REFLEKSI ===== */
+        .refleksi-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        .refleksi-item {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
+            border-radius: 18px;
+            padding: 0.8rem 1.4rem;
+            border-left: 4px solid #8b6fcb;
+            transition: 0.2s;
+        }
+        .refleksi-item:hover {
+            background: rgba(255, 255, 255, 0.35);
+        }
+        .refleksi-item strong {
+            color: #3f2e6b;
+            display: block;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .refleksi-item p {
+            margin-top: 0.2rem;
+            font-size: 0.93rem;
+            color: #35304a;
+        }
+
+        /* ===== GALERI PRODUK ===== */
+        .produk-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        .produk-item {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(6px);
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: 0.3s ease;
+            box-shadow: 0 8px 16px -8px rgba(0, 0, 0, 0.05);
+        }
+        .produk-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 32px -12px rgba(60, 40, 120, 0.2);
+        }
+        .produk-item img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            display: block;
+        }
+        .produk-item .label {
+            padding: 0.8rem 1rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: #2a2342;
+            background: rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(8px);
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            font-size: 0.9rem;
+            color: #3b3552;
+        }
+        .footer i {
+            color: #8b6fcb;
+            margin: 0 4px;
+        }
+        .footer .copyright {
+            margin-top: 0.3rem;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+                padding: 1.8rem 1.5rem;
+            }
+            .hero-text h1 {
+                font-size: 2.2rem;
+            }
+            .hero-avatar img {
+                width: 100px;
+                height: 100px;
+            }
+            .glass {
+                padding: 1.5rem 1.2rem;
+            }
+            .section-title h2 {
+                font-size: 1.4rem;
+            }
+            .navbar {
+                border-radius: 28px;
+                padding: 0.8rem 1.5rem;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .nav-popup {
+                width: 200px;
+                right: 0;
+                top: calc(100% + 10px);
+                padding: 1.2rem 1.5rem;
+            }
+            .btn-pdf {
+                font-size: 0.75rem;
+                padding: 4px 12px;
+            }
+            .nav-right {
+                gap: 6px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 1rem 0.8rem;
+            }
+            .hero-text h1 {
+                font-size: 1.8rem;
+            }
+            .produk-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            }
+            .nav-popup {
+                width: 180px;
+                right: -10px;
+                padding: 1rem 1.2rem;
+            }
+            .btn-pdf {
+                font-size: 0.7rem;
+                padding: 3px 8px;
+            }
+            .btn-pdf span {
+                display: none;
+            }
+        }
+
+        /* ================================================================
+           PRINT STYLESHEET – untuk ekspor PDF (poster A4)
+           ================================================================ */
+        @media print {
+            /* Reset body & poster */
+            body {
+                background: white !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                font-size: 10pt !important;
+                line-height: 1.4 !important;
+            }
+
+            .container {
+                max-width: 100% !important;
+                gap: 4mm !important;
+                padding: 6mm 8mm !important;
+                margin: 0 auto !important;
+            }
+
+            /* Sembunyikan elemen interaktif */
+            .navbar,
+            .btn-pdf,
+            .hamburger,
+            .nav-popup {
+                display: none !important;
+            }
+
+            /* Semua kartu jadi polos, tanpa blur/backdrop */
+            .glass,
+            .hero,
+            .info-card,
+            .pillar,
+            .produk-item,
+            .refleksi-item,
+            .footer {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                background: rgba(255, 255, 255, 0.85) !important;
+                border: 1px solid #ddd !important;
+                box-shadow: none !important;
+                transform: none !important;
+                padding: 3mm 4mm !important;
+                border-radius: 12px !important;
+                margin: 0 !important;
+            }
+
+            .hero {
+                display: flex !important;
+                flex-direction: row !important;
+                align-items: center !important;
+                gap: 6mm !important;
+                padding: 4mm 6mm !important;
+            }
+
+            .hero-text h1 {
+                font-size: 22pt !important;
+            }
+            .hero-text .sub {
+                font-size: 11pt !important;
+            }
+            .hero-text .quote {
+                font-size: 10pt !important;
+                background: rgba(0, 0, 0, 0.03) !important;
+            }
+            .hero-avatar img {
+                width: 70px !important;
+                height: 70px !important;
+                border: 2px solid #ccc !important;
+                box-shadow: none !important;
+            }
+
+            .section-title h2 {
+                font-size: 14pt !important;
+            }
+            .section-title i {
+                background: rgba(0, 0, 0, 0.03) !important;
+                border: 1px solid #ddd !important;
+            }
+            .section-title .line {
+                display: none !important;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr 1fr !important;
+                gap: 3mm !important;
+            }
+            .grid-3 {
+                grid-template-columns: 1fr 1fr 1fr !important;
+                gap: 3mm !important;
+            }
+
+            .info-card h3 {
+                font-size: 10.5pt !important;
+            }
+            .info-card p,
+            .info-card li {
+                font-size: 8.5pt !important;
+            }
+            .info-card ul li {
+                padding: 1mm 0 !important;
+                border-bottom-color: rgba(0, 0, 0, 0.05) !important;
+            }
+
+            .pillar h4 {
+                font-size: 9.5pt !important;
+            }
+            .pillar .tags span {
+                font-size: 7pt !important;
+                padding: 0.5mm 2mm !important;
+                background: rgba(0, 0, 0, 0.04) !important;
+                border-color: #ddd !important;
+            }
+
+            .refleksi-item {
+                padding: 1.5mm 3mm !important;
+                border-left-color: #6f4f9f !important;
+            }
+            .refleksi-item strong {
+                font-size: 8.5pt !important;
+            }
+            .refleksi-item p {
+                font-size: 8pt !important;
+            }
+
+            .produk-grid {
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 3mm !important;
+            }
+            .produk-item img {
+                height: 80px !important;
+                object-fit: cover !important;
+            }
+            .produk-item .label {
+                font-size: 7.5pt !important;
+                padding: 1mm 2mm !important;
+                background: rgba(0, 0, 0, 0.02) !important;
+            }
+            .produk-item {
+                border-radius: 8px !important;
+                overflow: hidden !important;
+            }
+
+            .footer {
+                padding: 2mm 0 !important;
+                font-size: 8pt !important;
+                border-top: 1px solid #ddd !important;
+                border-radius: 0 !important;
+                background: transparent !important;
+                backdrop-filter: none !important;
+                margin-top: 2mm !important;
+            }
+            .footer .copyright {
+                font-size: 7.5pt !important;
+            }
+
+            /* Hilangkan efek hover */
+            .glass:hover,
+            .info-card:hover,
+            .pillar:hover,
+            .produk-item:hover,
+            .refleksi-item:hover {
+                transform: none !important;
+                background: rgba(255, 255, 255, 0.85) !important;
+                box-shadow: none !important;
+            }
+
+            /* Pecah halaman agar rapi */
+            .hero {
+                page-break-after: avoid !important;
+            }
+            .glass {
+                page-break-inside: avoid !important;
+            }
+            .produk-grid {
+                page-break-inside: avoid !important;
+            }
+
+            /* Atur ukuran halaman A4 portrait */
+            @page {
+                size: A4 portrait;
+                margin: 8mm 10mm;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-feather-alt"></i> CT.Portfolio
+        </div>
+        <div class="nav-right">
+            <button class="btn-pdf" id="btnPdf">
+                <i class="fas fa-file-pdf"></i> <span>Download PDF</span>
+            </button>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-popup" id="navPopup">
+                <div class="modal-links">
+                    <a href="#profil"><i class="fas fa-user"></i> Profil</a>
+                    <a href="#latar"><i class="fas fa-history"></i> Latar</a>
+                    <a href="#bisnis"><i class="fas fa-building"></i> Bisnis</a>
+                    <a href="#sikap"><i class="fas fa-brain"></i> Sikap</a>
+                    <a href="#refleksi"><i class="fas fa-leaf"></i> Refleksi</a>
+                    <a href="#galeri"><i class="fas fa-images"></i> Galeri</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <header class="hero" id="home">
+        <div class="hero-text">
+            <div class="badge"><i class="fas fa-crown"></i> Tokoh Kewirausahaan</div>
+            <h1>Chairul <span>Tanjung</span></h1>
+            <div class="sub"><i class="fas fa-user-graduate"></i> drg., M.B.A. · Pendiri CT Corp</div>
+            <div class="quote"><i class="fas fa-quote-left"></i> "Si Anak Singkong" yang membangun imperium</div>
+        </div>
+        <div class="hero-avatar">
+            <img src="profil.jpg" alt="Foto Chairul Tanjung" />
+        </div>
+    </header>
+
+    <!-- ===== PROFIL ===== -->
+    <section class="glass" id="profil">
+        <div class="section-title">
+            <i class="fas fa-id-card"></i>
+            <h2>Identitas & Profil</h2>
+            <span class="line"></span>
+        </div>
+        <div class="grid-2">
+            <div class="info-card">
+                <h3><i class="fas fa-user"></i> Data Diri</h3>
+                <p><strong>Nama Lengkap:</strong> Dr. (H.C.) drg. H. Chairul Tanjung, M.B.A.</p>
+                <p><strong>Julukan:</strong> "Si Anak Singkong"</p>
+                <p><strong>Tempat/Tgl Lahir:</strong> Jakarta, 16 Juni 1962</p>
+                <p><strong>Pendidikan:</strong> FKG UI (1987) · MBA IPWI (1993)</p>
+                <p><strong>Posisi:</strong> Founder & Chairman CT Corp, Eks Menko Perekonomian RI</p>
+            </div>
+            <div class="info-card">
+                <h3><i class="fas fa-bullseye"></i> Rangkuman</h3>
+                <p>Chairul Tanjung adalah konglomerat Indonesia yang memulai usaha dari nol saat kuliah. Dari jualan kaos hingga mendirikan CT Corp, ia membangun ekosistem bisnis di bidang keuangan, ritel, media, hiburan, dan properti. Ia juga pernah menjabat sebagai Menteri Koordinator Bidang Perekonomian pada tahun 2014.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== LATAR ===== -->
+    <section class="glass" id="latar">
+        <div class="section-title">
+            <i class="fas fa-tree"></i>
+            <h2>Latar Belakang</h2>
+            <span class="line"></span>
+        </div>
+        <div class="grid-2">
+            <div class="info-card">
+                <h3><i class="fas fa-child"></i> Masa Kecil</h3>
+                <p>Lahir dari keluarga berada (ayah wartawan orde lama), namun bangkrut karena surat kabar ayahnya ditutup. Keluarga menjual rumah dan pindah ke pemukiman padat di Kramat, Jakarta Pusat. Inilah yang membentuk mental juangnya.</p>
+            </div>
+            <div class="info-card">
+                <h3><i class="fas fa-rocket"></i> Awal Bisnis</h3>
+                <ul>
+                    <li><i class="fas fa-tshirt"></i> Jualan kaos & fotokopi diktat kuliah</li>
+                    <li><i class="fas fa-syringe"></i> Peralatan kedokteran & laboratorium</li>
+                    <li><i class="fas fa-shoe-prints"></i> PT Pariarti Shindutama (ekspor sepatu)</li>
+                    <li><i class="fas fa-users"></i> Keluar & mendirikan Para Group (kini CT Corp)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== BISNIS ===== -->
+    <section class="glass" id="bisnis">
+        <div class="section-title">
+            <i class="fas fa-briefcase"></i>
+            <h2>Portofolio Bisnis CT Corp</h2>
+            <span class="line"></span>
+        </div>
+        <div class="grid-3">
+            <div class="pillar">
+                <h4><i class="fas fa-tv"></i> Media, Hiburan & Ritel</h4>
+                <div class="tags">
+                    <span>Trans TV</span><span>Trans7</span><span>detikcom</span>
+                    <span>CNN Indo</span><span>CNBC Indo</span><span>Transmart</span>
+                    <span>Carrefour</span><span>Trans Studio</span><span>XXI</span>
+                    <span>Mango</span><span>Boss</span><span>Ferragamo</span>
+                </div>
+            </div>
+            <div class="pillar">
+                <h4><i class="fas fa-university"></i> Jasa Keuangan</h4>
+                <div class="tags">
+                    <span>Bank Mega</span><span>Bank Mega Syariah</span>
+                    <span>Allo Bank</span><span>Mega Life</span>
+                    <span>Mega Central Finance</span>
+                </div>
+            </div>
+            <div class="pillar">
+                <h4><i class="fas fa-hotel"></i> Properti & SD</h4>
+                <div class="tags">
+                    <span>Trans Hotel</span><span>The Trans Luxury</span>
+                    <span>Ibis Bandung</span><span>Garuda Indonesia</span>
+                </div>
+            </div>
+        </div>
+        <p style="margin-top: 1rem; font-size: 0.9rem; color: #3f3a55;">
+            <i class="fas fa-sync-alt" style="color:#6f4f9f;"></i> 
+            <strong>Ekosistem terintegrasi:</strong> Kartu kredit Bank Mega diskon di Transmart & Trans Studio.
+        </p>
+    </section>
+
+    <!-- ===== SIKAP ===== -->
+    <section class="glass" id="sikap">
+        <div class="section-title">
+            <i class="fas fa-heart"></i>
+            <h2>Analisis Sikap & Karakter</h2>
+            <span class="line"></span>
+        </div>
+        <div class="grid-2">
+            <div class="info-card">
+                <h3><i class="fas fa-fist-raised"></i> Pantang Menyerah</h3>
+                <p>Bangkrut, pecah kongsi, hingga krisis moneter 1998, justru ia manfaatkan untuk akuisisi Bank Karman (kini Bank Mega).</p>
+            </div>
+            <div class="info-card">
+                <h3><i class="fas fa-eye"></i> Visioner & Berani Risiko</h3>
+                <p>Masuk industri media saat persaingan ketat, akuisisi Carrefour Indonesia dan detikcom. Berani mengambil langkah besar.</p>
+            </div>
+            <div class="info-card">
+                <h3><i class="fas fa-handshake"></i> Networking & Trust</h3>
+                <p>Membangun kepercayaan dengan berbagai kalangan pemerintah, pebisnis, dan karyawan adalah modal utamanya.</p>
+            </div>
+            <div class="info-card">
+                <h3><i class="fas fa-clock"></i> Kerja Keras & Disiplin</h3>
+                <p>Sejak kuliah, ia membagi waktu antara akademis (lulus teladan) dan bisnis. Konsistensi tanpa henti.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== INOVASI & REFLEKSI ===== -->
+    <section class="glass" id="refleksi">
+        <div class="section-title">
+            <i class="fas fa-lightbulb"></i>
+            <h2>Inovasi & Refleksi Diri</h2>
+            <span class="line"></span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <div>
+                <h3 style="font-weight:600; font-size:1.1rem; color:#2a2342;"><i class="fas fa-cogs" style="color:#6f4f9f;"></i> Inovasi & Keunikan</h3>
+                <div class="grid-2" style="margin-top:0.5rem;">
+                    <div class="info-card">
+                        <h3><i class="fas fa-link"></i> Sinergi Bisnis</h3>
+                        <p>Ekosistem saling terhubung: Bank Mega → diskon Transmart, Trans Studio, Trans Hotel.</p>
+                    </div>
+                    <div class="info-card">
+                        <h3><i class="fas fa-chess-queen"></i> Indoor Theme Park</h3>
+                        <p>Pelopor taman hiburan indoor kelas dunia di Indonesia (Trans Studio Makassar, Bandung, Cibubur).</p>
+                    </div>
+                    <div class="info-card">
+                        <h3><i class="fas fa-mobile-alt"></i> Digitalisasi</h3>
+                        <p>Akuisisi detikcom dan peluncuran Allo Bank untuk menjangkau generasi muda.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 style="font-weight:600; font-size:1.1rem; color:#2a2342;"><i class="fas fa-hand-holding-heart" style="color:#6f4f9f;"></i> Refleksi Sikap yang Ditiru</h3>
+                <div class="refleksi-list">
+                    <div class="refleksi-item">
+                        <strong><i class="fas fa-seedling"></i> Kerja Keras Tidak Mengkhianati Hasil</strong>
+                        <p>Latar belakang "anak singkong" bukan alasan menyerah. Keterbatasan justru memicu kreativitas dan ketangguhan.</p>
+                    </div>
+                    <div class="refleksi-item">
+                        <strong><i class="fas fa-shield-alt"></i> Kepercayaan adalah Aset Termahal</strong>
+                        <p>Menjaga integritas dan janji kepada mitra bisnis lebih penting daripada modal uang.</p>
+                    </div>
+                    <div class="refleksi-item">
+                        <strong><i class="fas fa-graduation-cap"></i> Belajar & Beradaptasi Tanpa Henti</strong>
+                        <p>Latar pendidikan dokter gigi, namun mampu menguasai finansial, media, dan manajemen karena terus belajar.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== GALERI PRODUK ===== -->
+    <section class="glass" id="galeri">
+        <div class="section-title">
+            <i class="fas fa-image"></i>
+            <h2>Galeri Produk Unggulan</h2>
+            <span class="line"></span>
+        </div>
+        <div class="produk-grid">
+            <div class="produk-item">
+                <img src="produk.jpg" alt="Produk CT Corp 1" />
+                <div class="label">Trans Studio</div>
+            </div>
+            <div class="produk-item">
+                <img src="produk.jpg" alt="Produk CT Corp 2" />
+                <div class="label">Bank Mega</div>
+            </div>
+            <div class="produk-item">
+                <img src="produk.jpg" alt="Produk CT Corp 3" />
+                <div class="label">Trans TV</div>
+            </div>
+            <div class="produk-item">
+                <img src="produk.jpg" alt="Produk CT Corp 4" />
+                <div class="label">Transmart</div>
+            </div>
+        </div>
+        <p style="margin-top: 1rem; font-size: 0.85rem; color: #4d4270; text-align: center;"> <strong>produk.jpg</strong>
+        </p>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div>
+            <i class="fas fa-code"></i> Portofolio Chairul Tanjung 
+            <i class="fas fa-circle" style="font-size: 0.3rem; vertical-align: middle; margin:0 6px;"></i>
+        </div>
+        <div class="copyright">
+            <i class="far fa-copyright"></i> 2026 Rizky Aditya · XI TKJ 2
+        </div>
+    </footer>
+
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+    // Elemen popup
+    const popup = document.getElementById('navPopup');
+    const hamburger = document.getElementById('hamburger');
+    const popupLinks = document.querySelectorAll('.nav-popup .modal-links a');
+
+    function togglePopup(e) {
+        e.stopPropagation();
+        popup.classList.toggle('open');
+    }
+
+    function closePopup() {
+        popup.classList.remove('open');
+    }
+
+    hamburger.addEventListener('click', togglePopup);
+
+    document.addEventListener('click', function(e) {
+        const navbar = document.querySelector('.navbar');
+        if (!navbar.contains(e.target)) {
+            closePopup();
+        }
+    });
+
+    popupLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            const targetEl = document.querySelector(targetId);
+            if (targetEl) {
+                closePopup();
+                setTimeout(() => {
+                    targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 250);
+            }
+        });
+    });
+
+    document.querySelector('.logo').addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        closePopup();
+    });
+
+    // ===== TOMBOL DOWNLOAD PDF =====
+    document.getElementById('btnPdf').addEventListener('click', function() {
+        window.print();
+    });
+
+    console.log('✅ Portofolio Chairul Tanjung siap!');
+</script>
+
+</body>
+</html>
